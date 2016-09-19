@@ -172,10 +172,10 @@ public class SerwerSMS {
             }
 
             String requestString = jsonParam.toString();
-
-            OutputStreamWriter writer = new OutputStreamWriter(http.getOutputStream());
-            writer.write(requestString);
-            writer.flush();
+            
+            OutputStream os = http.getOutputStream();
+            os.write(requestString.getBytes("UTF-8"));             
+            os.close();
         }
 
     }

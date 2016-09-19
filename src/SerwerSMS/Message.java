@@ -109,8 +109,15 @@ public class Message {
             messageList.append(temp.get("text"));
             messageList.append("]|[");
         }
-
-        options.put("messages", messageList.toString());
+        
+        String  message = messageList.toString();
+        Integer length = message.length();
+        if(length > 3) {
+            length -= 3;
+            message = message.substring(0,length);
+        }
+        
+        options.put("messages", message);
 
         params.putAll(options);
 
