@@ -19,6 +19,7 @@ public class SerwerSMS {
     private String password = "";
     private String api = "https://api2.serwersms.pl/";
     private String format = "json";
+    private String client = "client_java";
     private static HttpURLConnection http;
 
     public Message message = null;
@@ -70,6 +71,7 @@ public class SerwerSMS {
 
             params.put("username", username);
             params.put("password", password);
+            params.put("system", client);
 
             request(action, params);
 
