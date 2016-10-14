@@ -180,3 +180,6 @@ Biblioteka do obsługi formatu JSON lub XML
 
 ## Dokumentacja
 http://dev.serwersms.pl
+
+## Konsola API
+http://apiconsole.serwersms.pl
