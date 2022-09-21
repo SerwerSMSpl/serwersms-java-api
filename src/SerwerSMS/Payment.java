@@ -1,12 +1,12 @@
-package SerwerSMS;
+package pl.serwersms.apiv2;
 
 import java.util.HashMap;
 
 /**
  *
  * @author SerwerSMS
- * @version: 1.0
- * @date 2016-01
+ * @version: 1.2
+ * @date 2022-09
  */
 public class Payment {
 

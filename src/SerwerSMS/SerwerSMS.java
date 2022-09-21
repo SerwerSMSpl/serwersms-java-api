@@ -1,4 +1,4 @@
-package SerwerSMS;
+package pl.serwersms.apiv2;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -10,17 +10,16 @@ import org.json.*;
 /**
  *
  * @author SerwerSMS
- * @version: 1.0
- * @date 2016-01
+ * @version: 1.2
+ * @date 2022-09
  */
 public class SerwerSMS {
 
-    private String username = "";
-    private String password = "";
+    private String token = "";
     private String api = "https://api2.serwersms.pl/";
     private String format = "json";
     private String client = "client_java";
-    private static HttpURLConnection http;
+    private HttpURLConnection http;
 
     public Message message = null;
     public File file = null;
@@ -37,14 +36,13 @@ public class SerwerSMS {
     public Subaccount subaccount = null;
     public Payment payment = null;
 
-    public SerwerSMS(String user, String pass) throws Exception {
+    public SerwerSMS(String auth) throws Exception {
 
-        if (user.isEmpty() || pass.isEmpty()) {
-            throw new Exception("Brak danych autoryzacyjnych");
+        if (auth.isEmpty()) {
+            throw new Exception("Empty token");
         }
 
-        username = user;
-        password = pass;
+        token = auth;
 
         message = new Message(this);
         file = new File(this);
@@ -69,11 +67,9 @@ public class SerwerSMS {
 
         try {
 
-            params.put("username", username);
-            params.put("password", password);
             params.put("system", client);
 
-            request(action, params);
+            request(action, token, params);
 
             InputStream inputStream = null;
             if (http != null) {
@@ -101,10 +97,7 @@ public class SerwerSMS {
 
         try {
 
-            params.put("username", username);
-            params.put("password", password);
-
-            request(action, params);
+            request(action, token, params);
 
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             InputStream inputStream = null;
@@ -144,7 +137,7 @@ public class SerwerSMS {
         return false;
     }
 
-    private void request(String action, HashMap<String, String> params) throws Exception {
+    private void request(String action, String token, HashMap<String, String> params) throws Exception {
 
         action += "." + format;
 
@@ -159,6 +152,7 @@ public class SerwerSMS {
         http.setDoInput(true);
         http.setRequestMethod("POST");
         http.setRequestProperty("Content-Type", "application/json");
+        http.setRequestProperty("Authorization", "Bearer " + token);
 
         JSONObject jsonParam = new JSONObject();
 
@@ -174,9 +168,9 @@ public class SerwerSMS {
             }
 
             String requestString = jsonParam.toString();
-            
+
             OutputStream os = http.getOutputStream();
-            os.write(requestString.getBytes("UTF-8"));             
+            os.write(requestString.getBytes("UTF-8"));
             os.close();
         }
 

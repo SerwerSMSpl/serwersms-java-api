@@ -12,7 +12,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.json.*;
 import org.w3c.dom.*;
 import org.xml.sax.InputSource;
-import SerwerSMS.*;
+import pl.serwersms.apiv2.*;
 
 public class NewMain {
 
@@ -20,7 +20,7 @@ public class NewMain {
 
         try {
         
-            SerwerSMS SerwerSMSApi = new SerwerSMS("demo", "demo");
+            SerwerSMS SerwerSMSApi = new SerwerSMS("token");
         
             HashMap<String, String> options = new HashMap<String, String>();
             options.put("test", "true");
@@ -79,7 +79,7 @@ public class NewMain {
 ```java
 try {
 
-    SerwerSMS SerwerSMSApi = new SerwerSMS("demo", "demo");
+    SerwerSMS SerwerSMSApi = new SerwerSMS("token");
     String type = "json";
     SerwerSMSApi.setFormat(type);
     
@@ -183,3 +183,15 @@ http://dev.serwersms.pl
 
 ## Konsola API
 http://apiconsole.serwersms.pl
+
+## Maven
+https://oss.sonatype.org/#nexus-search;quick~pl.serwersms
+
+```
+<dependency>
+  <groupId>pl.serwersms</groupId>
+  <artifactId>apiv2</artifactId>
+  <version>1.2</version>
+</dependency>
+```
+
