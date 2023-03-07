@@ -1,9 +1,7 @@
 # SerwerSMS.pl JAVA Client API
 Klient JAVA do komunikacji zdalnej z API v2 SerwerSMS.pl
 
-Uwaga. Wersja 1.2 działa w oparciu o token API. 
-
-W celu autoryzacji za pośrednictwem Tokenu API, należy wygenerować go po stronie Panelu Klienta w menu Ustawienia interfejsów → HTTPS API → Tokeny API. Format nagłówka autoryzacyjnego jest zgodny z formatem Bearer token.
+Zalecane jest, aby komunikacja przez HTTPS API odbywała się z loginów utworzonych specjalnie do połączenia przez API. Konto użytkownika API można utworzyć w Panelu Klienta → Ustawienia interfejsów → HTTPS XML API → Użytkownicy.
 
 #### Przykładowe wywołanie
 ```java
@@ -14,7 +12,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.json.*;
 import org.w3c.dom.*;
 import org.xml.sax.InputSource;
-import pl.serwersms.apiv2.*;
+import SerwerSMS.*;
 
 public class NewMain {
 
@@ -22,7 +20,7 @@ public class NewMain {
 
         try {
         
-            SerwerSMS SerwerSMSApi = new SerwerSMS("token");
+            SerwerSMS SerwerSMSApi = new SerwerSMS("demo", "demo");
         
             HashMap<String, String> options = new HashMap<String, String>();
             options.put("test", "true");
@@ -81,7 +79,7 @@ public class NewMain {
 ```java
 try {
 
-    SerwerSMS SerwerSMSApi = new SerwerSMS("token");
+    SerwerSMS SerwerSMSApi = new SerwerSMS("demo", "demo");
     String type = "json";
     SerwerSMSApi.setFormat(type);
     
@@ -185,15 +183,3 @@ http://dev.serwersms.pl
 
 ## Konsola API
 http://apiconsole.serwersms.pl
-
-## Maven
-https://oss.sonatype.org/#nexus-search;quick~pl.serwersms
-
-```
-<dependency>
-  <groupId>pl.serwersms</groupId>
-  <artifactId>apiv2</artifactId>
-  <version>1.2</version>
-</dependency>
-```
-
