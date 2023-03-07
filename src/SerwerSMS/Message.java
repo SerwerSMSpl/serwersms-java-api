@@ -1,4 +1,4 @@
-package pl.serwersms.apiv2;
+package SerwerSMS;
 
 import java.util.HashMap;
 import java.util.ArrayList;
@@ -6,8 +6,8 @@ import java.util.ArrayList;
 /**
  *
  * @author SerwerSMS
- * @version: 1.2
- * @date 2022-09
+ * @version: 1.1
+ * @date 2016-01
  */
 public class Message {
 
