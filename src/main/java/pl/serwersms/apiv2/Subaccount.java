@@ -3,10 +3,7 @@ package pl.serwersms.apiv2;
 import java.util.HashMap;
 
 /**
- *
  * @author SerwerSMS
- * @version: 1.2
- * @date 2022-09
  */
 public class Subaccount {
 
@@ -21,14 +18,12 @@ public class Subaccount {
     /**
      * Creating new subaccount
      *
-     * @param String subaccount_username
-     * @param String subaccount_password
-     * @param String subaccount_id Subaccount ID, which is template of powers
-     * @param array params
-     * @option String "name"
-     * @option String "phone"
-     * @option String "email"
-     * @return type
+     * @param subaccount_username subaccount username
+     * @param subaccount_password subaccount password
+     * @param subaccount_id       subaccount id used as a permissions template
+     * @param params              request parameters; supported keys: "name",
+     *                            "phone", "email"
+     * @return JSON response with a "success" (boolean) field
      */
     public String add(String subaccount_username, String subaccount_password, String subaccount_id, HashMap<String, String> params) {
 
@@ -37,19 +32,18 @@ public class Subaccount {
         options.put("subaccount_password", subaccount_password);
         options.put("subaccount_id", subaccount_id);
 
-        params.putAll(options);
+        HashMap<String, String> requestParams = new HashMap<String, String>(params);
+        requestParams.putAll(options);
 
-        return master.send("subaccounts/add", params);
+        return master.send("subaccounts/add", requestParams);
 
     }
 
     /**
      * List of subaccounts
      *
-     * @return array
-     * @option array "items"
-     * @option int "id"
-     * @option String "username"
+     * @return JSON response with an "items" array, where each item has "id" and
+     *         "username"
      */
     public String index() {
 
@@ -60,13 +54,9 @@ public class Subaccount {
     /**
      * View details of subaccount
      *
-     * @param String id
-     * @return array
-     * @option int "id"
-     * @option String "username"
-     * @option String "name"
-     * @option String "phone"
-     * @option String "email"
+     * @param id subaccount identifier
+     * @return JSON response with "id", "username", "name", "phone" and "email"
+     *         fields
      */
     public String view(String id) {
 
@@ -80,12 +70,10 @@ public class Subaccount {
     /**
      * Setting the limit on subaccount
      *
-     * @param String id
-     * @param String type Message type: eco|full|voice|mms|hlr
-     * @param String value
-     * @return array
-     * @option booleanean "success"
-     * @option int "id"
+     * @param id    subaccount identifier
+     * @param type  message type (eco|full|voice|mms|hlr)
+     * @param value limit value
+     * @return JSON response with "success" (boolean) and "id" (int) fields
      */
     public String limit(String id, String type, String value) {
 
@@ -101,9 +89,8 @@ public class Subaccount {
     /**
      * Deleting a subaccount
      *
-     * @param String id
-     * @return array
-     * @option booleanean "success"
+     * @param id subaccount identifier
+     * @return JSON response with a "success" (boolean) field
      */
     public String delete(String id) {
 

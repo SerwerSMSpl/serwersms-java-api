@@ -3,10 +3,7 @@ package pl.serwersms.apiv2;
 import java.util.HashMap;
 
 /**
- *
  * @author SerwerSMS
- * @version: 1.2
- * @date 2022-09
  */
 public class Payment {
 
@@ -21,15 +18,9 @@ public class Payment {
     /**
      * List of payments
      *
-     * @return array
-     * @option array "items"
-     * @option int "id"
-     * @option String "number"
-     * @option String "state" paid|not_paid
-     * @option float "paid"
-     * @option float "total"
-     * @option String "payment_to"
-     * @option String "url"
+     * @return JSON response with an "items" array, where each item has "id",
+     *         "number", "state" (paid|not_paid), "paid", "total", "payment_to"
+     *         and "url"
      */
     public String index() {
 
@@ -40,15 +31,9 @@ public class Payment {
     /**
      * View single payment
      *
-     * @param String id
-     * @return array
-     * @option int "id"
-     * @option String "number"
-     * @option String "state" paid|not_paid
-     * @option float "paid"
-     * @option float "total"
-     * @option String "payment_to"
-     * @option String "url"
+     * @param id payment identifier
+     * @return JSON response with "id", "number", "state" (paid|not_paid),
+     *         "paid", "total", "payment_to" and "url" fields
      */
     public String view(String id) {
 
@@ -62,8 +47,8 @@ public class Payment {
     /**
      * Download invoice as PDF
      *
-     * @param String id
-     * @return byte[]
+     * @param id payment identifier
+     * @return the invoice PDF as a byte array
      */
     public byte[] invoice(String id) {
 

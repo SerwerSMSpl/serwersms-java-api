@@ -3,10 +3,7 @@ package pl.serwersms.apiv2;
 import java.util.HashMap;
 
 /**
- *
  * @author SerwerSMS
- * @version: 1.2
- * @date 2022-09
  */
 public class Phone {
 
@@ -21,16 +18,11 @@ public class Phone {
     /**
      * Checking phone in to HLR
      *
-     * @param String phone
-     * @param String id Query ID returned if the processing takes longer than 60
-     * seconds
-     * @return array
-     * @option String "phone"
-     * @option String "status"
-     * @option int "imsi"
-     * @option String "network"
-     * @option boolean "ported"
-     * @option String "network_ported"
+     * @param phone phone number to check
+     * @param id    Query ID returned if the processing takes longer than 60
+     *              seconds
+     * @return JSON response with "phone", "status", "imsi", "network", "ported"
+     *         and "network_ported" fields
      */
     public String check(String phone, String id) {
 
@@ -45,9 +37,8 @@ public class Phone {
     /**
      * Validating phone number
      *
-     * @param String phone
-     * @return array
-     * @option boolean "correct"
+     * @param phone phone number to validate
+     * @return JSON response with a "correct" (boolean) field
      */
     public String test(String phone) {
 

@@ -5,10 +5,7 @@ import java.util.HashMap;
 import java.util.ArrayList;
 
 /**
- *
  * @author SerwerSMS
- * @version: 1.2
- * @date 2022-09
  */
 public class File {
 
@@ -23,35 +20,29 @@ public class File {
     /**
      * Add new file
      *
-     * @param String type - mms|voice
-     * @param array params
-     * @option String "url" URL address to file
-     * @return array
-     * @option boolean "success"
-     * @option String "id"
+     * @param type   file type (mms|voice)
+     * @param params request parameters; supported keys: "url" (URL address to
+     *               the file)
+     * @return JSON response with "success" (boolean) and "id" (String) fields
      */
     public String add(String type, HashMap<String, String> params) {
 
         HashMap<String, String> options = new HashMap<String, String>();
         options.put("type", type);
 
-        params.putAll(options);
+        HashMap<String, String> requestParams = new HashMap<String, String>(params);
+        requestParams.putAll(options);
 
-        return master.send("files/add", params);
+        return master.send("files/add", requestParams);
 
     }
 
     /**
      * List of files
      *
-     * @param String type - mms|voice
-     * @return array
-     * @option array "items"
-     * @option String "id"
-     * @option String "name"
-     * @option int "size"
-     * @option String "type" - mms|voice
-     * @option String "date"
+     * @param type file type (mms|voice)
+     * @return JSON response with an "items" array, where each item has "id",
+     *         "name", "size", "type" (mms|voice) and "date"
      */
     public String index(String type) {
 
@@ -65,14 +56,10 @@ public class File {
     /**
      * View file
      *
-     * @param String id
-     * @param String type - mms|voice
-     * @return array
-     * @option String "id"
-     * @option String "name"
-     * @option int "size"
-     * @option String "type" - mms|voice
-     * @option String "date"
+     * @param id   file identifier
+     * @param type file type (mms|voice)
+     * @return JSON response with "id", "name", "size", "type" (mms|voice) and
+     *         "date" fields
      */
     public String view(String id, String type) {
 
@@ -87,10 +74,9 @@ public class File {
     /**
      * Deleting a file
      *
-     * @param String id
-     * @param String type - mms|voice
-     * @return array
-     * @option boolean "success"
+     * @param id   file identifier
+     * @param type file type (mms|voice)
+     * @return JSON response with a "success" (boolean) field
      */
     public String delete(String id, String type) {
 

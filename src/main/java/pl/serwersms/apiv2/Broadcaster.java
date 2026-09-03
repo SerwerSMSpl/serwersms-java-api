@@ -3,10 +3,7 @@ package pl.serwersms.apiv2;
 import java.util.HashMap;
 
 /**
- *
  * @author SerwerSMS
- * @version: 1.2
- * @date 2022-09
  */
 public class Broadcaster {
 
@@ -21,9 +18,8 @@ public class Broadcaster {
     /**
      * Creating new Sender name
      *
-     * @param String name
-     * @return array
-     * @option booleanean "success"
+     * @param name sender name to create
+     * @return JSON response with a "success" (boolean) field
      */
     public String add(String name) {
 
@@ -37,16 +33,11 @@ public class Broadcaster {
     /**
      * Senders list
      *
-     * @param array params
-     * @option bool "predefined"
-     * @option String "sort" Values: name
-     * @option String "order" Values: asc|desc
-     * @return array
-     * @option array "items"
-     * @option String "name"
-     * @option String "agreement" delivered|required|not_required
-     * @option String "status"
-     * pending_authorization|authorized|rejected|deactivated
+     * @param params request parameters; supported keys: "predefined" (boolean),
+     *               "sort" (values: name), "order" (values: asc|desc)
+     * @return JSON response with an "items" array, where each item has "name",
+     *         "agreement" (delivered|required|not_required) and "status"
+     *         (pending_authorization|authorized|rejected|deactivated)
      */
     public String index(HashMap<String, String> params) {
 

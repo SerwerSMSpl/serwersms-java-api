@@ -3,10 +3,7 @@ package pl.serwersms.apiv2;
 import java.util.HashMap;
 
 /**
- *
  * @author SerwerSMS
- * @version: 1.2
- * @date 2022-09
  */
 public class Template {
 
@@ -21,14 +18,10 @@ public class Template {
     /**
      * List of templates
      *
-     * @param array params
-     * @option String "sort" Values: name
-     * @option String "order" Values: asc|desc
-     * @return array
-     * @option array "items"
-     * @option int "id"
-     * @option String "name"
-     * @option String "text"
+     * @param params request parameters; supported keys: "sort" (values: name),
+     *               "order" (values: asc|desc)
+     * @return JSON response with an "items" array, where each item has "id",
+     *         "name" and "text"
      */
     public String index(HashMap<String, String> params) {
 
@@ -39,12 +32,9 @@ public class Template {
     /**
      * Adding new template
      *
-     * @param String name
-     * @param String text
-     * @return array
-     * @option array
-     * @option booleanean "success"
-     * @option int "id"
+     * @param name template name
+     * @param text template text
+     * @return JSON response with "success" (boolean) and "id" (int) fields
      */
     public String add(String name, String text) {
 
@@ -59,12 +49,10 @@ public class Template {
     /**
      * Editing a template
      *
-     * @param String id
-     * @param String name
-     * @param String text
-     * @return array
-     * @option booleanean "success"
-     * @option int "id"
+     * @param id   template identifier
+     * @param name new template name
+     * @param text new template text
+     * @return JSON response with "success" (boolean) and "id" (int) fields
      */
     public String edit(String id, String name, String text) {
 
@@ -80,9 +68,8 @@ public class Template {
     /**
      * Deleting a template
      *
-     * @param String id
-     * @return array
-     * @option booleanean "success"
+     * @param id template identifier
+     * @return JSON response with a "success" (boolean) field
      */
     public String delete(String id) {
 

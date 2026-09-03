@@ -3,10 +3,7 @@ package pl.serwersms.apiv2;
 import java.util.HashMap;
 
 /**
- *
  * @author SerwerSMS
- * @version: 1.2
- * @date 2022-09
  */
 public class Fault {
 
@@ -19,13 +16,11 @@ public class Fault {
     }
 
     /**
-     * Preview error
+     * Preview an error description.
      *
-     * @param int code
-     * @return array
-     * @option int "code"
-     * @option String "type"
-     * @option String "message"
+     * @param code error code
+     * @return JSON response with "code" (int), "type" (String) and "message"
+     *         (String) fields
      */
     public String view(int code) {
 

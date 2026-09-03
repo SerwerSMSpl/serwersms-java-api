@@ -5,10 +5,7 @@ import java.util.HashMap;
 import java.util.ArrayList;
 
 /**
- *
  * @author SerwerSMS
- * @version: 1.2
- * @date 2022-09
  */
 public class Blacklist {
 
@@ -23,10 +20,8 @@ public class Blacklist {
     /**
      * Add phone to the blacklist
      *
-     * @param String phone
-     * @return array
-     * @option boolean "success"
-     * @option int "id"
+     * @param phone phone number to add
+     * @return JSON response with "success" (boolean) and "id" (int) fields
      */
     public String add(String phone) {
 
@@ -40,35 +35,30 @@ public class Blacklist {
     /**
      * List of blacklist phones
      *
-     * @param String phone
-     * @param array params
-     * @option int "page" The number of the displayed page
-     * @option int "limit" Limit items are displayed on the single page
-     * @return array
-     * @option array "paging"
-     * @option int "page" The number of current page
-     * @option int "count" The number of all pages
-     * @option array "items"
-     * @option String "phone"
-     * @option String "added" Date of adding phone
+     * @param phone  phone number filter (may be empty)
+     * @param params request parameters; supported keys: "page" (displayed page
+     *               number), "limit" (items per page)
+     * @return JSON response with a "paging" object ("page" - current page,
+     *         "count" - total pages) and an "items" array, where each item has
+     *         "phone" and "added" (date the phone was added)
      */
     public String index(String phone, HashMap<String, String> params) {
 
         HashMap<String, String> options = new HashMap<String, String>();
         options.put("phone", phone);
 
-        params.putAll(options);
+        HashMap<String, String> requestParams = new HashMap<String, String>(params);
+        requestParams.putAll(options);
 
-        return master.send("blacklist/index", params);
+        return master.send("blacklist/index", requestParams);
 
     }
 
     /**
      * Checking if phone is blacklisted
      *
-     * @param String phone
-     * @return array
-     * @option boolean "exists"
+     * @param phone phone number to check
+     * @return JSON response with an "exists" (boolean) field
      */
     public String check(String phone) {
 
@@ -82,9 +72,8 @@ public class Blacklist {
     /**
      * Deleting phone from the blacklist
      *
-     * @param String phone
-     * @return array
-     * @option boolean "success"
+     * @param phone phone number to delete
+     * @return JSON response with a "success" (boolean) field
      */
     public String delete(String phone) {
 

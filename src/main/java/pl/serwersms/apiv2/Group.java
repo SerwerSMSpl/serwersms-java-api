@@ -4,10 +4,7 @@ import java.util.HashMap;
 import java.util.ArrayList;
 
 /**
- *
  * @author SerwerSMS
- * @version: 1.2
- * @date 2022-09
  */
 public class Group {
 
@@ -22,10 +19,8 @@ public class Group {
     /**
      * Add new group
      *
-     * @param String name
-     * @return array
-     * @option booleanean "success"
-     * @option int "id"
+     * @param name group name
+     * @return JSON response with "success" (boolean) and "id" (int) fields
      */
     public String add(String name) {
 
@@ -39,40 +34,31 @@ public class Group {
     /**
      * List of group
      *
-     * @param String search Group name
-     * @param array params
-     * @option int "page" The number of the displayed page
-     * @option int "limit" Limit items are displayed on the single page
-     * @option String "sort" Values: name
-     * @option String "order" Values: asc|desc
-     * @return array
-     * @option array "paging"
-     * @option int "page" The number of current page
-     * @option int "count" The number of all pages
-     * @option array "items"
-     * @option int "id"
-     * @option String "name"
-     * @option int "count" Number of contacts in the group
+     * @param search group name filter (may be empty)
+     * @param params request parameters; supported keys: "page", "limit",
+     *               "sort" (values: name), "order" (values: asc|desc)
+     * @return JSON response with a "paging" object ("page", "count") and an
+     *         "items" array, where each item has "id", "name" and "count"
+     *         (number of contacts in the group)
      */
     public String index(String search, HashMap<String, String> params) {
 
         HashMap<String, String> options = new HashMap<String, String>();
-        params.put("search", search);
+        options.put("search", search);
 
-        params.putAll(options);
+        HashMap<String, String> requestParams = new HashMap<String, String>(params);
+        requestParams.putAll(options);
 
-        return master.send("groups/index", params);
+        return master.send("groups/index", requestParams);
 
     }
 
     /**
      * View single group
      *
-     * @param int id
-     * @return array
-     * @option int "id"
-     * @option String "name"
-     * @option int "count" Number of contacts in the group
+     * @param id group identifier
+     * @return JSON response with "id", "name" and "count" (number of contacts
+     *         in the group) fields
      */
     public String view(String id) {
 
@@ -86,11 +72,9 @@ public class Group {
     /**
      * Editing a group
      *
-     * @param String id
-     * @param String name
-     * @return array
-     * @option booleanean "success"
-     * @option int "id"
+     * @param id   group identifier
+     * @param name new group name
+     * @return JSON response with "success" (boolean) and "id" (int) fields
      */
     public String edit(String id, String name) {
 
@@ -105,9 +89,8 @@ public class Group {
     /**
      * Deleting a group
      *
-     * @param int id
-     * @return array
-     * @option booleanean "success"
+     * @param id group identifier
+     * @return JSON response with a "success" (boolean) field
      */
     public String delete(String id) {
 
@@ -121,11 +104,8 @@ public class Group {
     /**
      * Viewing a groups containing phone
      *
-     * @param String phone
-     * @return array
-     * @option int "id"
-     * @option int "group_id"
-     * @option String "group_name"
+     * @param phone phone number
+     * @return JSON response with "id", "group_id" and "group_name" fields
      */
     public String check(String phone) {
 

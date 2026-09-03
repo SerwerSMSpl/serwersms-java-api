@@ -1,11 +1,11 @@
 # SerwerSMS.pl JAVA Client API
-JAVA client for remote communication with the SerwerSMS.pl API v2
+Klient JAVA do komunikacji zdalnej z API v2 SerwerSMS.pl
 
-Note. Version 2.0.0 works based on an API token.
+Uwaga. Wersja 2.0.0 działa w oparciu o token API.
 
-To authorize via an API token, generate it in the Customer Panel under Settings → HTTP API → API Tokens. The authorization header format follows the Bearer token scheme.
+W celu autoryzacji za pośrednictwem Tokenu API, należy wygenerować go po stronie Panelu Klienta w menu Ustawienia interfejsów → HTTP API → Tokeny API. Format nagłówka autoryzacyjnego jest zgodny z formatem Bearer token.
 
-## Installation (Maven)
+## Instalacja (Maven)
 
 ```xml
 <dependency>
@@ -15,33 +15,33 @@ To authorize via an API token, generate it in the Customer Panel under Settings 
 </dependency>
 ```
 
-## Requirements
-Java 17 or newer
+## Wymagania
+Java 17 lub nowsza
 
-A library for handling JSON or XML format (org.json)
+Biblioteka do obsługi formatu JSON lub XML (org.json)
 
-## Configuration
+## Konfiguracja
 
-The API token is passed to the constructor. The remaining settings (API URL, timeouts, response format) are optional and have default values.
+Token API przekazywany jest w konstruktorze. Pozostałe ustawienia (adres API, limity czasu, format odpowiedzi) są opcjonalne i mają wartości domyślne.
 
 ```java
 SerwerSMS SerwerSMSApi = new SerwerSMS("token");
 
-// Optional: custom API URL (default https://api2.serwersms.pl/)
+// Opcjonalnie: własny adres API (domyślnie https://api2.serwersms.pl/)
 SerwerSMSApi.setApiUrl("https://api2.serwersms.pl/");
 
-// Optional: connection and read timeouts in milliseconds (default 30000)
+// Opcjonalnie: limity czasu połączenia i odczytu w milisekundach (domyślnie 30000)
 SerwerSMSApi.setTimeout(5000, 5000);
 
-// Optional: response format - "json" (default) or "xml"
+// Opcjonalnie: format odpowiedzi - "json" (domyślny) lub "xml"
 SerwerSMSApi.setFormat("json");
 ```
 
-Note: configuration is passed explicitly through the constructor and setter methods. If the values are meant to come from the runtime environment, the application reads the environment variables itself and passes them to the library, e.g. `SerwerSMSApi.setApiUrl(System.getenv("SERWERSMS_API_URL"))`.
+Uwaga: konfiguracja przekazywana jest jawnie przez konstruktor i metody ustawiające. Jeśli wartości mają pochodzić ze środowiska uruchomieniowego, aplikacja odczytuje zmienne środowiskowe samodzielnie i przekazuje je do biblioteki, np. `SerwerSMSApi.setApiUrl(System.getenv("SERWERSMS_API_URL"))`.
 
-## Error handling
+## Obsługa błędów
 
-API communication errors (HTTP error, timeout, connection problem) are reported as `SerwerSMSException`. Application-level API errors are returned in the response body (the `error` field).
+Błędy komunikacji z API (błąd HTTP, przekroczenie limitu czasu, problem połączenia) zgłaszane są jako `SerwerSMSException`. Błędy aplikacyjne API zwracane są w treści odpowiedzi (pole `error`).
 
 ```java
 try {
@@ -53,15 +53,15 @@ try {
     String result = SerwerSMSApi.message.sendSms("500600700", "Test message", "INFORMACJA", options);
     System.out.println(result);
 } catch (SerwerSMSException e) {
-    // API communication errors (unchecked RuntimeException)
-    System.out.println("API error: " + e.getMessage());
+    // Błędy komunikacji z API (nieopakowany RuntimeException)
+    System.out.println("Błąd API: " + e.getMessage());
 } catch (Exception e) {
-    // Constructor error (e.g. empty token) - the constructor declares throws Exception
-    System.out.println("Initialization error: " + e.getMessage());
+    // Błąd konstruktora (np. pusty token) - konstruktor deklaruje throws Exception
+    System.out.println("Błąd inicjalizacji: " + e.getMessage());
 }
 ```
 
-## Example usage
+## Przykładowe wywołanie
 ```java
 import java.io.*;
 import java.util.*;
@@ -133,7 +133,7 @@ public class NewMain {
 }
 ```
 
-#### Sending SMS (FULL)
+#### Wysyłka SMS (FULL)
 ```java
 try {
     SerwerSMS SerwerSMSApi = new SerwerSMS("token");
@@ -149,7 +149,7 @@ try {
 }
 ```
 
-#### Sending SMS (ECO)
+#### Wysyłka SMS (ECO)
 ```java
 try {
     SerwerSMS SerwerSMSApi = new SerwerSMS("token");
@@ -165,7 +165,7 @@ try {
 }
 ```
 
-#### Sending VOICE (from text)
+#### Wysyłka VOICE (z tekstu)
 ```java
 try {
     SerwerSMS SerwerSMSApi = new SerwerSMS("token");
@@ -182,7 +182,7 @@ try {
 }
 ```
 
-#### Sending MMS
+#### Wysyłka MMS
 ```java
 try {
     SerwerSMS SerwerSMSApi = new SerwerSMS("token");
@@ -198,7 +198,7 @@ try {
 }
 ```
 
-#### Sending personalized SMS
+#### Wysyłka spersonalizowanych SMS
 ```java
 try {
 
@@ -228,7 +228,7 @@ try {
 }
 ```
 
-#### Fetching delivery reports
+#### Pobieranie raportów doręczeń
 ```java
 try {
 
@@ -242,13 +242,13 @@ try {
 }
 ```
 
-#### Fetching incoming messages
+#### Pobieranie wiadomości przychodzących
 ```java
 try {
 
     HashMap<String, String> options = new HashMap<String, String>();
     options.put("phone", "500600700");
-    // message type: eco | nd | ndi | mms
+    // typ wiadomości: eco | nd | ndi | mms
     String result = SerwerSMSApi.message.received("ndi", options);
 
 } catch (Exception e) {
@@ -256,19 +256,19 @@ try {
 }
 ```
 
-## Migration from version 1.2
+## Migracja z wersji 1.2
 
-Version 2.0.0 introduces backward-incompatible changes:
+Wersja 2.0.0 wprowadza zmiany niekompatybilne wstecz:
 
-- Java 17 is required (previously Java 8).
-- API communication errors are reported as `SerwerSMSException` (previously they were returned in the response body or thrown as a generic exception). `SerwerSMSException` extends `RuntimeException` (it is unchecked), so it does not require a `throws` declaration or a mandatory `catch`.
-- The `Message.recived` method was corrected to `Message.received`.
-- The `Premium` class was removed.
+- Wymagana jest Java 17 (poprzednio Java 8).
+- Błędy komunikacji z API zgłaszane są jako `SerwerSMSException` (wcześniej były zwracane w treści odpowiedzi lub zgłaszane jako ogólny wyjątek). `SerwerSMSException` dziedziczy po `RuntimeException` (jest nieopakowany), więc nie wymaga deklaracji `throws` ani obowiązkowego `catch`.
+- Metoda `Message.recived` została poprawiona na `Message.received`.
+- Usunięto klasę `Premium`.
 
-## Documentation
+## Dokumentacja
 http://dev.serwersms.pl
 
-## API Console
+## Konsola API
 http://apiconsole.serwersms.pl
 
 ## Maven
